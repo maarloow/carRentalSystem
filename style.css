@@ -8,3 +8,34 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
 }
+
+.car-card{
+border: 2px solid lightgray;
+border-radius: 30px;
+display: flex;
+flex-direction: column;
+}
+
+.car-card__body{
+margin: 10px 20px;
+display: flex;
+flex-direction: row;
+flex-grow: 1;
+
+}
+.car-card__title{
+margin: 5px 0px;
+}
+.car-card__pricing{
+margin-top: auto;
+margin-left: auto;
+    right: 5px;
+}
+
+.car-card__info{
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    margin-right: auto;
+}
+
