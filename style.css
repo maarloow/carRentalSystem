@@ -1,0 +1,10 @@
+.layout {
+    display: grid;
+    grid-template-columns: 80px 300px 1fr;
+}
+
+.cars__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
