@@ -17,7 +17,7 @@
         <!-- Sidebar Navigation -->
         <nav class="sidebar">
 
-            <button class="sidebar__button">
+            <button class="sidebar__button" id="btn-addCar">
                 <span class="sidebar__icon">🚗</span>
                 <span class="sidebar__text">+</span>
             </button>
@@ -195,6 +195,23 @@
             </div>
 
         </section>
+
+        <div class="modal hidden" id="carModal">
+            <div class="modal__content">
+                <button class="modal__btn" id="btnCloseModal">Close</button>
+                <h2 class="modal__header">Add car</h2>
+
+                <form action="" class="modal__form">
+                    <input type="text" name="" class="modal__input" placeholder="Registration" id="input-registration">
+                    <input type="text" name="" class="modal__input" placeholder="Brand" id="input-brand">
+                    <input type="text" name="" class="modal__input" placeholder="Model" id="input-model">
+                    <input type="number" name="" class="modal__input" placeholder="Year" id="input-registration">
+                    <input type="number" name="" class="modal__input" placeholder="Price/day" id="input-price-day">
+                    <input type="number" name="" class="modal__input" placeholder="Price/hour" id="input-price-hour">
+                </form>
+                <button type="submit">Save</button>
+            </div>
+        </div>
 
     </main>
 <script src="script.js"></script>

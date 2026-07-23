@@ -1,3 +1,16 @@
+const addCarBtn = document.getElementById("btn-addCar");
+const closeModal = document.getElementById("btnCloseModal")
+const modal = document.getElementById("carModal");
+
+//event listeners
+addCarBtn.addEventListener("click", () => {
+modal.classList.remove("hidden");
+});
+
+closeModal.addEventListener("click", () => {
+modal.classList.add("hidden");
+});
+
 const cars = [
     {
         id: 1,
@@ -5,7 +18,8 @@ const cars = [
         brand: "Volvo",
         model: "V90",
         year: 2022,
-        price: 89,
+        priceDay: 89,
+        priceHour: 19,
         status: "Available"
     },
         {
@@ -44,11 +58,11 @@ return `<article class="car-card">
                         </div>
                         <div class="car-card__pricing">
                             <p class="car-card__hour-price">
-                                ${car.price}€/h
+                                ${car.priceHour}€/h
                             </p>
 
                             <p class="car-card__day-price">
-                                ${car.price}€/day
+                                ${car.priceDay}€/day
                             </p>
                         </div>
 

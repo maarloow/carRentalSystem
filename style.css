@@ -38,4 +38,28 @@ margin-left: auto;
     margin-top: auto;
     margin-right: auto;
 }
+.modal{
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0,0,0,.5);
+}
+.modal__content {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 500px;
+}
+#btnCloseModal{
+
+}
+.hidden{
+    display: none;
+}
+
+
 
