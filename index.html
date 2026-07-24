@@ -201,15 +201,17 @@
                 <button class="modal__btn" id="btnCloseModal">Close</button>
                 <h2 class="modal__header">Add car</h2>
 
-                <form action="" class="modal__form">
-                    <input type="text" name="" class="modal__input" placeholder="Registration" id="input-registration">
-                    <input type="text" name="" class="modal__input" placeholder="Brand" id="input-brand">
-                    <input type="text" name="" class="modal__input" placeholder="Model" id="input-model">
-                    <input type="number" name="" class="modal__input" placeholder="Year" id="input-registration">
-                    <input type="number" name="" class="modal__input" placeholder="Price/day" id="input-price-day">
-                    <input type="number" name="" class="modal__input" placeholder="Price/hour" id="input-price-hour">
+                <form action="" class="modal__form" id="carForm">
+                    <input type="text" name="registration" class="modal__input" placeholder="Registration" id="input-registration">
+                    <input type="text" name="brand" class="modal__input" placeholder="Brand" id="input-brand">
+                    <input type="text" name="model" class="modal__input" placeholder="Model" id="input-model">
+                    <input type="text" name="imgUrl" class="modal__input" placeholder="img url" id="input-img-url">
+                    <input type="number" name="year" class="modal__input" placeholder="Year" id="input-year">
+                    <input type="number" name="priceDay" class="modal__input" placeholder="Price/day" id="input-price-day">
+                    <input type="number" name="priceHour" class="modal__input" placeholder="Price/hour" id="input-price-hour">
+                    <button type="submit" id="btnSaveCar">Save</button>
                 </form>
-                <button type="submit">Save</button>
+                
             </div>
         </div>
 

@@ -1,15 +1,32 @@
-const addCarBtn = document.getElementById("btn-addCar");
-const closeModal = document.getElementById("btnCloseModal")
+
+const openAddCarModalBtn = document.getElementById("btn-addCar");
+const closeModalBtn = document.getElementById("btnCloseModal");
+const saveCarBtn = document.getElementById("btnSaveCar");
+
 const modal = document.getElementById("carModal");
 
+const carForm = document.getElementById("carForm");
+
+carForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(carForm);
+
+    const car = Object.fromEntries(formData);
+
+    saveCar(car);
+});
+
 //event listeners
-addCarBtn.addEventListener("click", () => {
+openAddCarModalBtn.addEventListener("click", () => {
 modal.classList.remove("hidden");
 });
 
-closeModal.addEventListener("click", () => {
+closeModalBtn.addEventListener("click", () => {
 modal.classList.add("hidden");
 });
+
+
 
 const cars = [
     {
@@ -70,6 +87,13 @@ return `<article class="car-card">
                     </div>
 
                 </article>`
+}
+
+function saveCar(car){
+    
+let carsList = JSON.parse(localStorage.getItem("cars")) || [];
+carsList.push(car);
+localStorage.setItem("cars", JSON.stringify(carsList));
 }
 
 renderCars();
