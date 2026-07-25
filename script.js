@@ -27,7 +27,7 @@ modal.classList.add("hidden");
 });
 
 
-
+/* 
 const cars = [
     {
         id: 1,
@@ -48,14 +48,22 @@ const cars = [
         price: 89,
         status: "Available"
     }
-];
+]; */
 
 function renderCars(){
 const carsGrid = document.getElementById("cars__grid");
 carsGrid.innerHTML = "";
+const cars = getCars();
 for (car of cars){
     carsGrid.innerHTML += createCarCard(car);
 }
+}
+
+function getCars(){
+    let carsList = JSON.parse(localStorage.getItem("cars"));
+    if(carsList) return carsList;
+    
+    else console.log("No stored cars");
 }
 
 function createCarCard(car){
