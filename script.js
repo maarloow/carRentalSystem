@@ -19,11 +19,19 @@ carForm.addEventListener("submit", (event) => {
     const formData = new FormData(carForm);
 
     const car = Object.fromEntries(formData);
+    const error = validateCar(car)
+    if(error){
+        alert(error);
+        return;
+    }
+    else{
     if (editingCarId === null)
         saveCar(car);
-    else
+    else{
         updateCar(car);
-    carForm.reset();
+        carForm.reset();
+    }
+}
 });
 
 //event listeners
@@ -125,6 +133,54 @@ function getCars() {
     else cars = [];
 }
 
+
+
+function validateCar(car) {
+    const MIN_YEAR = year.getFullYear() - 100;
+    const MAX_YEAR = new Date().getFullYear() + 1;
+
+    const cars = getCars();
+    const exists = cars.some(c => c.registration === car.registration);
+
+    if(exists){
+        return "A car with the same registration number already exists!";
+    }
+
+    if (!car.registration.trim()) {
+        return "Registration is required.";
+    }
+
+    if (!car.brand.trim()) {
+        return "Brand is required.";
+    }
+
+    if (!car.model.trim()) {
+        return "Model is required.";
+    }
+
+    if (!car.imgUrl.trim()) {
+        return "Image URL is required.";
+    }
+
+    
+    if (car.year < MIN_YEAR) {
+        return "Car cannot be older than 100 years";
+    }
+    
+    if(car.year > MAX_YEAR)
+        return "Car cannot be made in " + car.year;
+
+    if (car.priceDay <= 0) {
+        return "Price per day must be greater than 0.";
+    }
+
+    if (car.priceHour <= 0) {
+        return "Price per hour must be greater than 0.";
+    }
+
+
+    return null;
+}
 function saveCars(cars){
     localStorage.setItem("cars", JSON.stringify(cars));
 }
