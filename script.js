@@ -2,6 +2,7 @@
 const openAddCarModalBtn = document.getElementById("btn-addCar");
 const closeModalBtn = document.getElementById("btnCloseModal");
 const saveCarBtn = document.getElementById("btnSaveCar");
+const deleteCarBtn = document.getElementById("btnDeleteCar");
 
 const carModal = document.getElementById("carModal");
 
@@ -32,8 +33,17 @@ openAddCarModalBtn.addEventListener("click", () => {
 
 closeModalBtn.addEventListener("click", () => {
     carModal.classList.add("hidden");
+    deleteCarBtn.classList.add("hidden");
     editingCarId = null;
 });
+
+deleteCarBtn.addEventListener("click", () => {
+
+    deleteCar();
+
+});
+
+
 
 //open edit car carModal
 carsGrid.addEventListener("click", (event) => {
@@ -72,6 +82,7 @@ function openEditCarModal(id) {
     const btnSaveCar = document.getElementById("btnSaveCar");
     btnSaveCar.textContent = "Update";
 
+    deleteCarBtn.classList.remove("hidden");
     carModal.classList.remove("hidden");
 }
 
@@ -182,6 +193,23 @@ function updateCar(inputCar) {
 
     saveCars(cars);
     carModal.classList.add("hidden");
+    deleteCarBtn.classList.add("hidden");
+    renderCars();
+    editingCarId = null;
+}
+
+function deleteCar(){
+    let cars = getCars();
+    const index = cars.findIndex(car => car.registration == editingCarId);
+
+    if(index !== -1){
+        cars.splice(index, 1);
+        saveCars(cars);
+    }
+
+
+    carModal.classList.add("hidden");
+    deleteCarBtn.classList.add("hidden");
     renderCars();
     editingCarId = null;
 }
