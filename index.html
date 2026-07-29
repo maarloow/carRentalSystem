@@ -17,12 +17,12 @@
         <!-- Sidebar Navigation -->
         <nav class="sidebar">
 
-            <button class="sidebar__button" id="btn-addCar">
+            <button class="sidebar__button" id="btnAddCar">
                 <span class="sidebar__icon">🚗</span>
                 <span class="sidebar__text">+</span>
             </button>
 
-            <button class="sidebar__button">
+            <button class="sidebar__button" id="btnAddCustomer">
                 <span class="sidebar__icon">👤</span>
                 <span class="sidebar__text">+</span>
             </button>
@@ -71,20 +71,20 @@
 
                 <article class="car-card">
 
-                    <div class="car-card__image"> 
+                    <div class="car-card__image">
                         <img src="images/alfa.png" alt="Avatar" style="width:100%">
                     </div>
 
                     <div class="car-card__body">
                         <div class="car-card__info">
-                        <h3 class="car-card__title">
-                            Volvo XC60
-                        </h3>
+                            <h3 class="car-card__title">
+                                Volvo XC60
+                            </h3>
 
-                        <p class="car-card__year">
-                            2023
-                        </p>
-                    </div>
+                            <p class="car-card__year">
+                                2023
+                            </p>
+                        </div>
                         <div class="car-card__pricing">
                             <p class="car-card__hour-price">
                                 €15 / hour
@@ -108,13 +108,13 @@
 
                     <div class="car-card__body">
                         <div class="car-card__info">
-                        <h3 class="car-card__title">
-                            Volvo XC60
-                        </h3>
+                            <h3 class="car-card__title">
+                                Volvo XC60
+                            </h3>
 
-                        <p class="car-card__year">
-                            2023
-                        </p>
+                            <p class="car-card__year">
+                                2023
+                            </p>
                         </div>
                         <div class="car-card__pricing">
                             <p class="car-card__hour-price">
@@ -133,20 +133,20 @@
 
                 <article class="car-card">
 
-                    <div class="car-card__image"> 
+                    <div class="car-card__image">
                         <img src="images/alfa.png" alt="Avatar" style="width:100%">
                     </div>
 
                     <div class="car-card__body">
                         <div class="car-card__info">
-                        <h3 class="car-card__title">
-                            Volvo XC60
-                        </h3>
+                            <h3 class="car-card__title">
+                                Volvo XC60
+                            </h3>
 
-                        <p class="car-card__year">
-                            2023
-                        </p>
-                    </div>
+                            <p class="car-card__year">
+                                2023
+                            </p>
+                        </div>
                         <div class="car-card__pricing">
                             <p class="car-card__hour-price">
                                 €15 / hour
@@ -168,13 +168,13 @@
 
                     <div class="car-card__body">
                         <div class="car-card__info">
-                        <h3 class="car-card__title">
-                            Volvo XC60
-                        </h3>
+                            <h3 class="car-card__title">
+                                Volvo XC60
+                            </h3>
 
-                        <p class="car-card__year">
-                            2023
-                        </p>
+                            <p class="car-card__year">
+                                2023
+                            </p>
                         </div>
                         <div class="car-card__pricing">
                             <p class="car-card__hour-price">
@@ -203,21 +203,49 @@
                 <h2 class="modal__header" id="modalHeader">Add car</h2>
 
                 <form action="" class="modal__form" id="carForm">
-                    <input type="text" name="registration" class="modal__input" placeholder="Registration" id="input-registration">
+                    <input type="text" name="registration" class="modal__input" placeholder="Registration"
+                        id="input-registration">
                     <input type="text" name="brand" class="modal__input" placeholder="Brand" id="input-brand">
                     <input type="text" name="model" class="modal__input" placeholder="Model" id="input-model">
                     <input type="text" name="imgUrl" class="modal__input" placeholder="img url" id="input-img-url">
                     <input type="number" name="year" class="modal__input" placeholder="Year" id="input-year">
-                    <input type="number" name="priceDay" class="modal__input" placeholder="Price/day" id="input-price-day">
-                    <input type="number" name="priceHour" class="modal__input" placeholder="Price/hour" id="input-price-hour">
+                    <input type="number" name="priceDay" class="modal__input" placeholder="Price/day"
+                        id="input-price-day">
+                    <input type="number" name="priceHour" class="modal__input" placeholder="Price/hour"
+                        id="input-price-hour">
                     <button type="submit" id="btnSaveCar">Save</button>
                 </form>
-                
+
+            </div>
+        </div>
+
+
+
+        <div class="modal hidden" id="customerModal">
+            <div class="modal__content">
+
+                <button class="modal__btn" id="btnCloseCustomerModal">
+                    Close
+                </button>
+
+                <h2 class="modal__header" id="customerModalHeader">
+                    Add Customer
+                </h2>
+
+                <form class="modal__form" id="customerForm">
+                    <input type="text" name="name" class="modal__input" id="input-customer-name" placeholder="Name">
+                    <input type="tel" name="phone" class="modal__input" id="input-customer-phone" placeholder="Phone">
+                    <input type="email" name="email" class="modal__input" id="input-customer-email" placeholder="Email">
+                    <button type="submit" id="btnSaveCustomer">
+                        Save
+                    </button>
+                </form>
+
             </div>
         </div>
 
     </main>
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>

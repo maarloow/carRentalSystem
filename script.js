@@ -1,6 +1,7 @@
 
-const openAddCarModalBtn = document.getElementById("btn-addCar");
-const closeModalBtn = document.getElementById("btnCloseModal");
+//  CAR   //
+const openAddCarModalBtn = document.getElementById("btnAddCar");
+const closeCarModalBtn = document.getElementById("btnCloseModal");
 const saveCarBtn = document.getElementById("btnSaveCar");
 const deleteCarBtn = document.getElementById("btnDeleteCar");
 
@@ -13,25 +14,56 @@ const carsGrid = document.getElementById("cars__grid");
 //let cars = getCars();
 let editingCarId = null;
 
+// CUSTOMER  //
+
+const openAddCustomerModalBtn = document.getElementById("btnAddCustomer");
+const closeCustomerModalBtn = document.getElementById("btnCloseCustomerModal");
+const customerModal = document.getElementById("customerModal");
+const customerForm = document.getElementById("customerForm");
+
+// customer eventlisteners //
+openAddCustomerModalBtn.addEventListener("click", () => {
+    customerModal.classList.remove("hidden");
+});
+
+closeCustomerModalBtn.addEventListener("click", () => {
+    customerModal.classList.add("hidden");
+});
+
+customerForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(customerForm);
+    const customer = Object.fromEntries(formData);
+
+    const error = validate(customer);
+    if(error){
+        alert(error);
+    }
+    else{
+        saveCustomer(customer);
+    }
+});
+
 carForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const formData = new FormData(carForm);
 
     const car = Object.fromEntries(formData);
-    const error = validateCar(car)
-    if(error){
+    const error = validateCar(car);
+    if (error) {
         alert(error);
         return;
     }
-    else{
-    if (editingCarId === null)
-        saveCar(car);
-    else{
-        updateCar(car);
-        carForm.reset();
+    else {
+        if (editingCarId === null)
+            saveCar(car);
+        else {
+            updateCar(car);
+            carForm.reset();
+        }
     }
-}
 });
 
 //event listeners
@@ -39,7 +71,7 @@ openAddCarModalBtn.addEventListener("click", () => {
     carModal.classList.remove("hidden");
 });
 
-closeModalBtn.addEventListener("click", () => {
+closeCarModalBtn.addEventListener("click", () => {
     carModal.classList.add("hidden");
     deleteCarBtn.classList.add("hidden");
     editingCarId = null;
@@ -61,6 +93,8 @@ carsGrid.addEventListener("click", (event) => {
     }
 
 });
+
+
 
 
 function openEditCarModal(id) {
@@ -142,7 +176,7 @@ function validateCar(car) {
     const cars = getCars();
     const exists = cars.some(c => c.registration === car.registration);
 
-    if(exists){
+    if (exists) {
         return "A car with the same registration number already exists!";
     }
 
@@ -162,12 +196,12 @@ function validateCar(car) {
         return "Image URL is required.";
     }
 
-    
+
     if (car.year < MIN_YEAR) {
         return "Car cannot be older than 100 years";
     }
-    
-    if(car.year > MAX_YEAR)
+
+    if (car.year > MAX_YEAR)
         return "Car cannot be made in " + car.year;
 
     if (car.priceDay <= 0) {
@@ -181,7 +215,35 @@ function validateCar(car) {
 
     return null;
 }
-function saveCars(cars){
+
+function validateCustomer(customer) {
+
+    if (!customer.name.trim()) {
+        return "Name is required.";
+    }
+
+    if (!customer.phone.trim()) {
+        return "Phone number is required.";
+    }
+
+    const phone = customer.phone.replace(/\D/g, "");
+
+    if (phone.length < 7) {
+        return "Please enter a valid phone number.";
+    }
+
+    if (!customer.email.trim()) {
+        return "Email is required.";
+    }
+
+    if (!customer.email.includes("@")) {
+        return "Please enter a valid email address.";
+    }
+
+    return null;
+}
+
+function saveCars(cars) {
     localStorage.setItem("cars", JSON.stringify(cars));
 }
 
@@ -219,25 +281,43 @@ function createCarCard(car) {
 function saveCar(car) {
     const id = car.registration;
     let cars = getCars();
-    if(cars.find(car => car.registration == id))
+    if (cars.find(car => car.registration == id))
         console.log("car with that registration already exists");
-    else{
+    else {
         cars.push(car);
         saveCars(cars);
         console.log("car saved");
     }
 }
+
+function saveCustomer(customer){
+    let customers = getCustomers();
+    customers.push(customer);
+    saveCustomers(customers);
+}
+
+function getCustomers(){
+    let customers = JSON.parse(localStorage.getItem("customers"));
+    if (customers) return customers;
+
+    else customers = [];
+}
+
+function saveCustomers(customers){
+    localStorage.setItem("customers", JSON.stringify(customers));
+}
+
 function updateCar(inputCar) {
     let cars = getCars();
     let car = cars.find(car => car.registration === editingCarId);
-/* 
-    const inputRegistration = document.getElementById("input-registration");
-    const inputBrand = document.getElementById("input-brand");
-    const inputModel = document.getElementById("input-model");
-    const inputImgUrl = document.getElementById("input-img-url");
-    const inputYear = document.getElementById("input-year");
-    const inputPriceDay = document.getElementById("input-price-day");
-    const inputPriceHour = document.getElementById("input-price-hour"); */
+    /* 
+        const inputRegistration = document.getElementById("input-registration");
+        const inputBrand = document.getElementById("input-brand");
+        const inputModel = document.getElementById("input-model");
+        const inputImgUrl = document.getElementById("input-img-url");
+        const inputYear = document.getElementById("input-year");
+        const inputPriceDay = document.getElementById("input-price-day");
+        const inputPriceHour = document.getElementById("input-price-hour"); */
 
     car.registration = inputCar.registration
     car.brand = inputCar.brand;
@@ -254,11 +334,11 @@ function updateCar(inputCar) {
     editingCarId = null;
 }
 
-function deleteCar(){
+function deleteCar() {
     let cars = getCars();
     const index = cars.findIndex(car => car.registration == editingCarId);
 
-    if(index !== -1){
+    if (index !== -1) {
         cars.splice(index, 1);
         saveCars(cars);
     }
