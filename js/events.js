@@ -5,7 +5,8 @@ import {
     getEditingCarId,
     setEditingCarId,
     renderCars,
-    getCar
+    getCar,
+    renderCarsPage
 } from "./cars.js";
 
 import {
@@ -25,6 +26,7 @@ import {
 const openAddCarModalBtn = document.getElementById("btnAddCar");
 const closeCarModalBtn = document.getElementById("btnCloseModal");
 const deleteCarBtn = document.getElementById("btnDeleteCar");
+const showCarsBtn = document.getElementById("btnShowCars");
 
 const carModal = document.getElementById("carModal");
 const carForm = document.getElementById("carForm");
@@ -82,6 +84,10 @@ showCustomersBtn.addEventListener("click", () => {
 // ---------------------
 // Car events
 // ---------------------
+
+showCarsBtn.addEventListener("click", () => {
+    renderCarsPage();
+});
 
 openAddCarModalBtn.addEventListener("click", () => {
 
