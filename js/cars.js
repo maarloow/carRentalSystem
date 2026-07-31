@@ -1,7 +1,8 @@
 import { getCars, saveCars } from "./storage.js";
+import { registerCarEvents } from "./events.js";
 
 let editingCarId = null;
-
+let app = document.getElementById("app");
 // ---------------------
 // State
 // ---------------------
@@ -25,6 +26,52 @@ export function renderCars() {
     for (const car of cars) {
         carsGrid.innerHTML += createCarCard(car);
     }
+}
+
+function createCarFilter(){
+    return `<aside class="filter" id="car-filter">
+
+            <h2 class="filter__title">Search</h2>
+
+            <div class="filter__group">
+                <label class="filter__label" for="brand">Brand</label>
+                <select class="filter__select" id="brand">
+                    <option>All brands</option>
+                </select>
+            </div>
+
+            <div class="filter__group">
+                <label class="filter__label" for="model">Model</label>
+                <select class="filter__select" id="model">
+                    <option>All models</option>
+                </select>
+            </div>
+
+            <div class="filter__group">
+                <label class="filter__label" for="price">Maximum price/day</label>
+                <input class="filter__input" type="number" id="price">
+            </div>
+
+            <div class="filter__group">
+                <label class="filter__label" for="year">Minimum year</label>
+                <input class="filter__input" type="number" id="year">
+            </div>
+
+            <button class="filter__button">
+                Search
+            </button>
+
+        </aside>`;
+}
+
+function createCarsSection(){
+    return `<section class="cars">
+
+            <div class="cars__grid" id="cars__grid">
+
+            </div>
+
+        </section>`;
 }
 
 function createCarCard(car) {
@@ -56,6 +103,21 @@ function createCarCard(car) {
                     </div>
 
                 </article>`
+}
+
+export function renderCarsPage(){
+
+    app.innerHTML = `   
+         ${createCarFilter()}
+         ${createCarsSection()}
+    `;
+    
+        
+
+        renderCars();
+
+        registerCarEvents();
+
 }
 
 // ---------------------
@@ -129,6 +191,8 @@ export function getCar(id){
     let car = cars.find(car => car.registration === editingCarId);
     return car;
 }
+
+
 
 
 

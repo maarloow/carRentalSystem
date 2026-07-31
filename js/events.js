@@ -27,7 +27,7 @@ const deleteCarBtn = document.getElementById("btnDeleteCar");
 
 const carModal = document.getElementById("carModal");
 const carForm = document.getElementById("carForm");
-const carsGrid = document.getElementById("cars__grid");
+
 
 // ---------------------
 // Customer elements
@@ -147,6 +147,9 @@ deleteCarBtn.addEventListener("click", () => {
     }
 });
 
+export function registerCarEvents(){
+const carsGrid = document.getElementById("cars__grid");
+
 carsGrid.addEventListener("click", event => {
 
     if (!event.target.classList.contains("edit-btn")) return;
@@ -182,3 +185,4 @@ carsGrid.addEventListener("click", event => {
     carModal.classList.remove("hidden");
 
 });
+}

@@ -1,5 +1,6 @@
 import "./events.js";
 
-import { renderCars } from "./cars.js";
+import { renderCars, renderCarsPage } from "./cars.js";
 
-renderCars();
+renderCarsPage();
+//renderCars();
