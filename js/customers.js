@@ -14,6 +14,105 @@ export function setEditingCustomerId(id) {
     editingCustomerId = id;
 }
 
+export function renderCustomers() {
+
+    const tableBody = document.getElementById("customersTableBody");
+
+    const customers = getCustomers();
+
+    tableBody.innerHTML = customers
+        .map(createCustomerRow)
+        .join("");
+}
+
+function createCustomersFilter(){
+    return `<aside class="filter" id="customer-filter">
+
+            <h2 class="filter__title">Search</h2>
+
+
+            <div class="filter__group">
+                
+                <input class="filter__input" type="text" id="customer-search">
+            </div>
+
+
+            <button class="filter__button">
+                Search
+            </button>
+
+        </aside>`;
+}
+
+function createCustomerRow(customer) {
+
+    return `
+        <tr>
+
+            <td>${customer.firstName}</td>
+
+            <td>${customer.lastName}</td>
+
+            <td>${customer.email}</td>
+
+            <td>${customer.phone}</td>
+
+            <td>${customer.licenseNumber}</td>
+
+            <td>
+                <button
+                    class="edit-customer-btn"
+                    data-id="${customer.id}">
+                    Edit
+                </button>
+            </td>
+
+        </tr>
+    `;
+}
+
+export function createCustomersTable() {
+
+    return `
+        <section class="customers">
+
+            <table class="customers-table">
+
+                <thead>
+
+                    <tr>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>License</th>
+                        <th>Actions</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="customersTableBody">
+
+                </tbody>
+
+            </table>
+
+        </section>
+    `;
+}
+
+export function renderCustomersPage() {
+
+    app.innerHTML = `
+        ${createCustomersFilter()}
+        ${createCustomersTable()}
+    `;
+
+    renderCustomers();
+
+    registerCustomerEvents();
+}
+
 // ---------------------
 // Create
 // ---------------------

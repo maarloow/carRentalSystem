@@ -9,6 +9,7 @@ import {
 } from "./cars.js";
 
 import {
+    renderCustomersPage,
     saveCustomer
 } from "./customers.js";
 
@@ -35,6 +36,7 @@ const carForm = document.getElementById("carForm");
 
 const openAddCustomerModalBtn = document.getElementById("btnAddCustomer");
 const closeCustomerModalBtn = document.getElementById("btnCloseCustomerModal");
+const showCustomersBtn = document.getElementById("btnShowCustomers");
 
 const customerModal = document.getElementById("customerModal");
 const customerForm = document.getElementById("customerForm");
@@ -70,6 +72,11 @@ customerForm.addEventListener("submit", (event) => {
 
     customerForm.reset();
     customerModal.classList.add("hidden");
+    renderCustomersPage();
+});
+
+showCustomersBtn.addEventListener("click", () => {
+    renderCustomersPage();
 });
 
 // ---------------------
@@ -185,4 +192,8 @@ carsGrid.addEventListener("click", event => {
     carModal.classList.remove("hidden");
 
 });
+}
+
+export function registerCustomerEvents(){
+    return 0;
 }
