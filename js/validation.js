@@ -33,12 +33,12 @@ export function validateCar(car) {
 
 export function validateCustomer(customer) {
 
-    if (!customer.name.trim()) {
-        return "Name is required.";
+    if (!customer.firstName.trim()) {
+        return "First name is required.";
     }
 
-    if (!customer.phone.trim()) {
-        return "Phone number is required.";
+    if (!customer.lastName.trim()) {
+        return "Last name is required.";
     }
 
     if (!customer.email.trim()) {
@@ -49,10 +49,19 @@ export function validateCustomer(customer) {
         return "Please enter a valid email address.";
     }
 
+    if (!customer.phone.trim()) {
+        return "Phone number is required.";
+    }
+
+    // Tar bort mellanslag, bindestreck osv.
     const phone = customer.phone.replace(/\D/g, "");
 
     if (phone.length < 7) {
         return "Please enter a valid phone number.";
+    }
+
+    if (!customer.licenseNumber.trim()) {
+        return "Driver's license number is required.";
     }
 
     return null;

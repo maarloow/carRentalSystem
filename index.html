@@ -220,7 +220,6 @@
         </div>
 
 
-
         <div class="modal hidden" id="customerModal">
             <div class="modal__content">
 
@@ -233,12 +232,28 @@
                 </h2>
 
                 <form class="modal__form" id="customerForm">
-                    <input type="text" name="name" class="modal__input" id="input-customer-name" placeholder="Name">
-                    <input type="tel" name="phone" class="modal__input" id="input-customer-phone" placeholder="Phone">
-                    <input type="email" name="email" class="modal__input" id="input-customer-email" placeholder="Email">
+
+                    <input type="text" name="firstName" id="input-first-name" class="modal__input"
+                        placeholder="First name">
+
+                    <input type="text" name="lastName" id="input-last-name" class="modal__input"
+                        placeholder="Last name">
+
+                    <input type="email" name="email" id="input-email" class="modal__input" placeholder="Email">
+
+                    <input type="tel" name="phone" id="input-phone" class="modal__input" placeholder="Phone number">
+
+                    <input type="text" name="licenseNumber" id="input-license-number" class="modal__input"
+                        placeholder="Driver's license number">
+
                     <button type="submit" id="btnSaveCustomer">
                         Save
                     </button>
+
+                    <button type="button" id="btnDeleteCustomer" class="hidden">
+                        Delete
+                    </button>
+
                 </form>
 
             </div>
