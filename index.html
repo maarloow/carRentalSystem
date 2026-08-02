@@ -36,6 +36,10 @@
             <span class="sidebar__icon">🚗</span>
             <span class="sidebar__text"></span>
         </button>
+                <button class="sidebar__button" id="btnNewRental">
+            <span class="sidebar__icon">🚗👤+</span>
+            <span class="sidebar__text"></span>
+        </button>
 
     </nav>
 
@@ -121,6 +125,70 @@
 
         </div>
     </div>
+
+    <div id="rentalModal" class="modal hidden">
+    <div class="modal__content">
+
+        <h2>New Rental</h2>
+
+        <form id="rentalForm">
+
+            <div class="input-group">
+                <label for="customerSelect">Customer</label>
+                <select id="customerSelect" name="customerId" required>
+                    <option value="">Select customer</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="startDate">Start Date</label>
+                <input
+                    type="date"
+                    id="startDate"
+                    name="startDate"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="endDate">End Date</label>
+                <input
+                    type="date"
+                    id="endDate"
+                    name="endDate"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="carSelect">Car</label>
+                <select id="carSelect" name="carId" required>
+                    <option value="">Select Car</option>
+                </select>
+            </div>
+
+            <p id="rentalErrorMessage" class="error-message"></p>
+
+            <div class="modal-buttons">
+                <button
+                    type="button"
+                    id="cancelRentalBtn"
+                    class="secondary-btn">
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    id="saveRentalBtn"
+                    class="primary-btn">
+                    Create Rental
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
 
 
     <script type="module" src="js/main.js"></script>

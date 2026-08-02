@@ -66,3 +66,33 @@ export function validateCustomer(customer) {
 
     return null;
 }
+
+export function validateRental(rental) {
+
+    if (!rental.customerId) {
+        return "Please select a customer.";
+    }
+
+    if (!rental.carId) {
+        return "Please select a car.";
+    }
+
+    if (!rental.startDate) {
+        return "Start date is required.";
+    }
+
+    if (!rental.endDate) {
+        return "End date is required.";
+    }
+
+    const startDate = new Date(rental.startDate);
+    const endDate = new Date(rental.endDate);
+
+    if (endDate < startDate) {
+        return "End date cannot be before start date.";
+    }
+
+
+
+    return null;
+}

@@ -6,7 +6,9 @@ import {
     setEditingCarId,
     renderCars,
     getCar,
-    renderCarsPage
+    renderCarsPage,
+    renderCarSelect,
+    isCarAvailable
 } from "./cars.js";
 
 import {
@@ -17,17 +19,21 @@ import {
     getEditingCustomerId,
     updateCustomer,
     deleteCustomer,
-    renderCustomers
+    renderCustomers,
+    renderCustomerSelect
 } from "./customers.js";
 
 import {
     validateCar,
-    validateCustomer
+    validateCustomer,
+    validateRental
 } from "./validation.js";
 
-// ---------------------
-// Car elements
-// ---------------------
+import { saveRental } from "./rentals.js";
+
+
+// Car elements //
+
 
 const openAddCarModalBtn = document.getElementById("btnAddCar");
 const closeCarModalBtn = document.getElementById("btnCloseModal");
@@ -38,9 +44,9 @@ const carModal = document.getElementById("carModal");
 const carForm = document.getElementById("carForm");
 
 
-// ---------------------
-// Customer elements
-// ---------------------
+
+// Customer elements //
+
 
 const openAddCustomerModalBtn = document.getElementById("btnAddCustomer");
 const closeCustomerModalBtn = document.getElementById("btnCloseCustomerModal");
@@ -50,9 +56,16 @@ const showCustomersBtn = document.getElementById("btnShowCustomers");
 const customerModal = document.getElementById("customerModal");
 const customerForm = document.getElementById("customerForm");
 
-// ---------------------
-// Customer events
-// ---------------------
+
+// Rent elements //
+
+const openNewRentalModalBtn = document.getElementById("btnNewRental");
+
+const rentalModal = document.getElementById("rentalModal");
+const rentalForm = document.getElementById("rentalForm");
+
+// Customer events //
+
 
 openAddCustomerModalBtn.addEventListener("click", () => {
     customerModal.classList.remove("hidden");
@@ -106,9 +119,51 @@ deleteCustomerBtn.addEventListener("click", () => {
     }
 });
 
-// ---------------------
-// Car events
-// ---------------------
+
+export function registerCustomerEvents() {
+    const customersTableBody = document.getElementById("customersTableBody");
+
+    customersTableBody.addEventListener("click", event => {
+
+        if (!event.target.classList.contains("edit-customer-btn")) return;
+
+        const id = event.target.dataset.id;
+
+        setEditingCustomerId(id);
+
+        const customer = getCustomer(id);
+
+        //const customerForm = document.getElementById("customerForm");
+
+        const inputFirstName = document.getElementById("input-first-name");
+        const inputLastName = document.getElementById("input-last-name");
+        const inputEmail = document.getElementById("input-email");
+        const inputPhone = document.getElementById("input-phone");
+        const inputLicenseNumber = document.getElementById("input-license-number");
+
+        const btnSaveCustomer = document.getElementById("btnSaveCustomer");
+        const btnDeleteCustomer = document.getElementById("btnDeleteCustomer");
+
+        const modalHeader = document.getElementById("customerModalHeader");
+
+        inputFirstName.value = customer.firstName;
+        inputLastName.value = customer.lastName;
+        inputEmail.value = customer.email;
+        inputPhone.value = customer.phone;
+        inputLicenseNumber.value = customer.licenseNumber;
+
+        modalHeader.textContent = "Edit Customer";
+
+        btnDeleteCustomer.classList.remove("hidden");
+
+        customerModal.classList.remove("hidden");
+
+    });
+}
+
+
+// Car events //
+
 
 showCarsBtn.addEventListener("click", () => {
     renderCarsPage();
@@ -190,80 +245,71 @@ export function registerCarEvents() {
 
     carsGrid.addEventListener("click", event => {
 
-        if (!event.target.classList.contains("edit-btn")) return;
+        if (event.target.classList.contains("edit-btn")) {
 
-        const id = event.target.dataset.id;
+            const id = event.target.dataset.id;
 
-        setEditingCarId(id);
+            setEditingCarId(id);
 
-        const car = getCar(id);
+            const car = getCar(id);
 
-        const inputRegistration = document.getElementById("input-registration");
-        const inputBrand = document.getElementById("input-brand");
-        const inputModel = document.getElementById("input-model");
-        const inputYear = document.getElementById("input-year");
-        const inputPriceDay = document.getElementById("input-price-day");
-        const inputPriceHour = document.getElementById("input-price-hour");
-        const inputImgUrl = document.getElementById("input-img-url");
+            const inputRegistration = document.getElementById("input-registration");
+            const inputBrand = document.getElementById("input-brand");
+            const inputModel = document.getElementById("input-model");
+            const inputYear = document.getElementById("input-year");
+            const inputPriceDay = document.getElementById("input-price-day");
+            const inputPriceHour = document.getElementById("input-price-hour");
+            const inputImgUrl = document.getElementById("input-img-url");
 
-        const modalHeader = document.getElementById("modalHeader");
+            const modalHeader = document.getElementById("modalHeader");
 
-        inputRegistration.value = car.registration;
-        inputBrand.value = car.brand;
-        inputModel.value = car.model;
-        inputYear.value = car.year;
-        inputPriceDay.value = car.priceDay;
-        inputPriceHour.value = car.priceHour;
-        inputImgUrl.value = car.imgUrl;
+            inputRegistration.value = car.registration;
+            inputBrand.value = car.brand;
+            inputModel.value = car.model;
+            inputYear.value = car.year;
+            inputPriceDay.value = car.priceDay;
+            inputPriceHour.value = car.priceHour;
+            inputImgUrl.value = car.imgUrl;
 
-        modalHeader.textContent = "Edit Car";
+            modalHeader.textContent = "Edit Car";
 
-        deleteCarBtn.classList.remove("hidden");
+            deleteCarBtn.classList.remove("hidden");
 
-        carModal.classList.remove("hidden");
+            carModal.classList.remove("hidden");
+        }
+        else if (event.target.classList.contains("book-btn")) {
 
-    });
-}
-
-
-export function registerCustomerEvents() {
-    const customersTableBody = document.getElementById("customersTableBody");
-
-    customersTableBody.addEventListener("click", event => {
-
-        if (!event.target.classList.contains("edit-customer-btn")) return;
-
-        const id = event.target.dataset.id;
-
-        setEditingCustomerId(id);
-
-        const customer = getCustomer(id);
-
-        //const customerForm = document.getElementById("customerForm");
-
-        const inputFirstName = document.getElementById("input-first-name");
-        const inputLastName = document.getElementById("input-last-name");
-        const inputEmail = document.getElementById("input-email");
-        const inputPhone = document.getElementById("input-phone");
-        const inputLicenseNumber = document.getElementById("input-license-number");
-
-        const btnSaveCustomer = document.getElementById("btnSaveCustomer");
-        const btnDeleteCustomer = document.getElementById("btnDeleteCustomer");
-
-        const modalHeader = document.getElementById("customerModalHeader");
-
-        inputFirstName.value = customer.firstName;
-        inputLastName.value = customer.lastName;
-        inputEmail.value = customer.email;
-        inputPhone.value = customer.phone;
-        inputLicenseNumber.value = customer.licenseNumber;
-
-        modalHeader.textContent = "Edit Customer";
-
-        btnDeleteCustomer.classList.remove("hidden");
-
-        customerModal.classList.remove("hidden");
+        }
 
     });
 }
 
+
+// Rental Events //
+
+openNewRentalModalBtn.addEventListener("click", () => {
+    renderCustomerSelect();
+    renderCarSelect();
+    rentalModal.classList.remove("hidden");
+});
+
+rentalForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const rental = Object.fromEntries(
+        new FormData(rentalForm)
+    );
+    const error = validateRental(rental);
+    if (error) {
+        alert(error);
+        return;
+    }
+
+    if (!isCarAvailable(rental.carId, rental.startDate, rental.endDate)) {
+        alert("The selected car is not available during the chosen period.");
+        return;
+    }
+
+    saveRental(rental);
+
+});

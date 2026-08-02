@@ -223,3 +223,26 @@ export function openEditCustomerModal(id) {
 
     document.getElementById("customerModal").classList.remove("hidden");
 }
+
+
+
+export function renderCustomerSelect() {
+
+    const customerSelect = document.getElementById("customerSelect");
+
+    const customers = getCustomers();
+
+    customerSelect.innerHTML = `
+        <option value="">Select customer</option>
+        ${customers.map(createCustomerOption).join("")}
+    `;
+}
+
+function createCustomerOption(customer) {
+
+    return `
+        <option value="${customer.id}">
+            ${customer.firstName} ${customer.lastName} ${customer.email}
+        </option>
+    `;
+}

@@ -1,5 +1,7 @@
 import { getCars, saveCars } from "./storage.js";
 import { registerCarEvents } from "./events.js";
+import { getRentals } from "./storage.js";
+
 
 let editingCarId = null;
 let app = document.getElementById("app");
@@ -28,7 +30,7 @@ export function renderCars() {
     }
 }
 
-function createCarFilter(){
+function createCarFilter() {
     return `<aside class="filter" id="car-filter">
 
             <h2 class="filter__title">Search</h2>
@@ -64,7 +66,7 @@ function createCarFilter(){
         </aside>`;
 }
 
-function createCarsSection(){
+function createCarsSection() {
     return `<section class="cars">
 
             <div class="cars__grid" id="cars__grid">
@@ -77,7 +79,7 @@ function createCarsSection(){
 function createCarCard(car) {
     return `<article class="car-card">
 
-                    <div class="car-card__image"><img src="images/bmw.png" alt="Avatar" style="width:100%"></div>
+                    <div class="car-card__image"><img src="${car.imgUrl}" alt="Avatar" style="width:100%"></div>
 
                     <div class="car-card__body">
                         <div class="car-card__info">
@@ -99,24 +101,25 @@ function createCarCard(car) {
                             </p>
                         </div>
 
-                        <button class="edit-btn" data-id=${car.registration} id="editCar">edit</button>
+                        <button class="edit-btn" data-id=${car.id} id="editCar">edit</button>
+                        <button class="book-btn" data-id=${car.id} id="bookCar">Book</button>
                     </div>
 
                 </article>`
 }
 
-export function renderCarsPage(){
+export function renderCarsPage() {
 
     app.innerHTML = `   
          ${createCarFilter()}
          ${createCarsSection()}
     `;
-    
-        
 
-        renderCars();
 
-        registerCarEvents();
+
+    renderCars();
+
+    registerCarEvents();
 
 }
 
@@ -125,18 +128,13 @@ export function renderCarsPage(){
 // ---------------------
 
 export function saveCar(car) {
-
-    const id = car.registration;
+    car.id = crypto.randomUUID();
     let cars = getCars();
-    if (cars.find(car => car.registration == id))
-        console.log("car with that registration already exists");
-    else {
-        cars.push(car);
-        saveCars(cars);
-        console.log("car saved");
-    }
-
+    cars.push(car);
+    saveCars(cars);
+    console.log("car saved");
 }
+
 
 // ---------------------
 // Update
@@ -146,13 +144,13 @@ export function updateCar(updatedCar) {
 
     const cars = getCars();
 
-    const index = cars.findIndex(car => car.registration === editingCarId);
+    const index = cars.findIndex(car => car.id === editingCarId);
 
     if (index === -1) {
         return;
     }
 
-    updatedCar.registration = editingCarId;
+    updatedCar.id = editingCarId;
 
     cars[index] = updatedCar;
 
@@ -169,7 +167,7 @@ export function deleteCar() {
 
     const cars = getCars();
 
-    const index = cars.findIndex(car => car.registration === editingCarId);
+    const index = cars.findIndex(car => car.id === editingCarId);
 
     if (index === -1) {
         return index;
@@ -186,11 +184,59 @@ export function deleteCar() {
 // Get
 // ---------------------
 
-export function getCar(id){
+export function getCar(id) {
     const cars = getCars();
-    let car = cars.find(car => car.registration === editingCarId);
+    let car = cars.find(car => car.id === editingCarId);
     return car;
 }
+
+
+export function renderCarSelect(startDate, endDate) {
+
+    const carSelect = document.getElementById("carSelect");
+
+/*     if (startDate && endDate) {
+        const cars = cars.filter(car =>
+            isCarAvailable(car.id, startDate, endDate)
+        );
+    }
+    else
+        alert("need dates to find available cars!"); */
+    const cars = getCars();
+    carSelect.innerHTML = `
+        <option value="">Select car</option>
+        ${cars.map(createCarOption).join("")}
+    `;
+}
+
+export function isCarAvailable(carId, startDate, endDate) {
+
+    const rentals = getRentals();
+
+    return !rentals.some(rental => {
+
+        if (rental.carId !== carId) {
+            return false;
+        }
+
+        return (
+            startDate <= rental.endDate &&
+            endDate >= rental.startDate
+        );
+
+    });
+}
+
+function createCarOption(car) {
+
+    return `
+        <option value="${car.id}">
+            ${car.brand} ${car.model} (${car.registration})
+        </option>
+    `;
+}
+
+
 
 
 
