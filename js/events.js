@@ -15,7 +15,9 @@ import {
     setEditingCustomerId,
     getCustomer,
     getEditingCustomerId,
-    updateCustomer
+    updateCustomer,
+    deleteCustomer,
+    renderCustomers
 } from "./customers.js";
 
 import {
@@ -42,6 +44,7 @@ const carForm = document.getElementById("carForm");
 
 const openAddCustomerModalBtn = document.getElementById("btnAddCustomer");
 const closeCustomerModalBtn = document.getElementById("btnCloseCustomerModal");
+const deleteCustomerBtn = document.getElementById("btnDeleteCustomer");
 const showCustomersBtn = document.getElementById("btnShowCustomers");
 
 const customerModal = document.getElementById("customerModal");
@@ -88,6 +91,19 @@ customerForm.addEventListener("submit", (event) => {
 
 showCustomersBtn.addEventListener("click", () => {
     renderCustomersPage();
+});
+
+deleteCustomerBtn.addEventListener("click", () => {
+    if (deleteCustomer() === -1)
+        alert("Error, unable to delete car");
+    else {
+
+        renderCustomers();
+
+        customerModalModal.classList.add("hidden");
+
+        customerForm.reset();
+    }
 });
 
 // ---------------------
