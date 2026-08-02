@@ -1,4 +1,5 @@
 import { getCustomers, saveCustomers } from "./storage.js";
+import { registerCustomerEvents } from "./events.js";
 
 let editingCustomerId = null;
 
@@ -112,6 +113,19 @@ export function renderCustomersPage() {
 
     registerCustomerEvents();
 }
+
+export function getCar(id){
+    const cars = getCars();
+    let car = cars.find(car => car.registration === editingCarId);
+    return car;
+}
+
+export function getCustomer(id){
+    const customers = getCustomers();
+    let customer = customers.find(customer => customer.id === editingCustomerId);
+    return customer;
+}
+
 
 // ---------------------
 // Create

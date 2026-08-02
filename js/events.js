@@ -11,7 +11,11 @@ import {
 
 import {
     renderCustomersPage,
-    saveCustomer
+    saveCustomer,
+    setEditingCustomerId,
+    getCustomer,
+    getEditingCustomerId,
+    updateCustomer
 } from "./customers.js";
 
 import {
@@ -70,7 +74,12 @@ customerForm.addEventListener("submit", (event) => {
         return;
     }
 
-    saveCustomer(customer);
+    if (getEditingCustomerId() === null) {
+        saveCustomer(customer);
+    }
+    else {
+        updateCustomer(customer);
+    }
 
     customerForm.reset();
     customerModal.classList.add("hidden");
@@ -160,46 +169,85 @@ deleteCarBtn.addEventListener("click", () => {
     }
 });
 
-export function registerCarEvents(){
-const carsGrid = document.getElementById("cars__grid");
+export function registerCarEvents() {
+    const carsGrid = document.getElementById("cars__grid");
 
-carsGrid.addEventListener("click", event => {
+    carsGrid.addEventListener("click", event => {
 
-    if (!event.target.classList.contains("edit-btn")) return;
+        if (!event.target.classList.contains("edit-btn")) return;
 
-    const id = event.target.dataset.id;
+        const id = event.target.dataset.id;
 
-    setEditingCarId(id);
+        setEditingCarId(id);
 
-    const car = getCar(id);
+        const car = getCar(id);
 
-    const inputRegistration = document.getElementById("input-registration");
-    const inputBrand = document.getElementById("input-brand");
-    const inputModel = document.getElementById("input-model");
-    const inputYear = document.getElementById("input-year");
-    const inputPriceDay = document.getElementById("input-price-day");
-    const inputPriceHour = document.getElementById("input-price-hour");
-    const inputImgUrl = document.getElementById("input-img-url");
+        const inputRegistration = document.getElementById("input-registration");
+        const inputBrand = document.getElementById("input-brand");
+        const inputModel = document.getElementById("input-model");
+        const inputYear = document.getElementById("input-year");
+        const inputPriceDay = document.getElementById("input-price-day");
+        const inputPriceHour = document.getElementById("input-price-hour");
+        const inputImgUrl = document.getElementById("input-img-url");
 
-    const modalHeader = document.getElementById("modalHeader");
+        const modalHeader = document.getElementById("modalHeader");
 
-    inputRegistration.value = car.registration;
-    inputBrand.value = car.brand;
-    inputModel.value = car.model;
-    inputYear.value = car.year;
-    inputPriceDay.value = car.priceDay;
-    inputPriceHour.value = car.priceHour;
-    inputImgUrl.value = car.imgUrl;
+        inputRegistration.value = car.registration;
+        inputBrand.value = car.brand;
+        inputModel.value = car.model;
+        inputYear.value = car.year;
+        inputPriceDay.value = car.priceDay;
+        inputPriceHour.value = car.priceHour;
+        inputImgUrl.value = car.imgUrl;
 
-    modalHeader.textContent = "Edit Car";
+        modalHeader.textContent = "Edit Car";
 
-    deleteCarBtn.classList.remove("hidden");
+        deleteCarBtn.classList.remove("hidden");
 
-    carModal.classList.remove("hidden");
+        carModal.classList.remove("hidden");
 
-});
+    });
 }
 
-export function registerCustomerEvents(){
-    return 0;
+
+export function registerCustomerEvents() {
+    const customersTableBody = document.getElementById("customersTableBody");
+
+    customersTableBody.addEventListener("click", event => {
+
+        if (!event.target.classList.contains("edit-customer-btn")) return;
+
+        const id = event.target.dataset.id;
+
+        setEditingCustomerId(id);
+
+        const customer = getCustomer(id);
+
+        //const customerForm = document.getElementById("customerForm");
+
+        const inputFirstName = document.getElementById("input-first-name");
+        const inputLastName = document.getElementById("input-last-name");
+        const inputEmail = document.getElementById("input-email");
+        const inputPhone = document.getElementById("input-phone");
+        const inputLicenseNumber = document.getElementById("input-license-number");
+
+        const btnSaveCustomer = document.getElementById("btnSaveCustomer");
+        const btnDeleteCustomer = document.getElementById("btnDeleteCustomer");
+
+        const modalHeader = document.getElementById("customerModalHeader");
+
+        inputFirstName.value = customer.firstName;
+        inputLastName.value = customer.lastName;
+        inputEmail.value = customer.email;
+        inputPhone.value = customer.phone;
+        inputLicenseNumber.value = customer.licenseNumber;
+
+        modalHeader.textContent = "Edit Customer";
+
+        btnDeleteCustomer.classList.remove("hidden");
+
+        customerModal.classList.remove("hidden");
+
+    });
 }
+
