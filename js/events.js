@@ -30,7 +30,7 @@ import {
     validateRental
 } from "./validation.js";
 
-import { saveRental } from "./rentals.js";
+import { renderRentalsPage, saveRental } from "./rentals.js";
 
 
 
@@ -61,6 +61,7 @@ const customerForm = document.getElementById("customerForm");
 // Rent elements //
 
 const openNewRentalModalBtn = document.getElementById("btnNewRental");
+const showRentalsBtn = document.getElementById("btnShowRentals");
 
 const rentalModal = document.getElementById("rentalModal");
 const rentalForm = document.getElementById("rentalForm");
@@ -331,6 +332,8 @@ rentalForm.addEventListener("submit", (event) => {
     saveRental(rental);
 
 });
+
+showRentalsBtn.addEventListener("click", renderRentalsPage);
 
 inputStartDate.addEventListener("change", updateAvailableCars);
 

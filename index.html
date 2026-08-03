@@ -27,6 +27,12 @@
             <span class="sidebar__text">+</span>
         </button>
 
+        </button>
+        <button class="sidebar__button" id="btnNewRental">
+            <span class="sidebar__icon">🚗👤+</span>
+            <span class="sidebar__text"></span>
+        </button>
+
         <button class="sidebar__button" id="btnShowCustomers">
             <span class="sidebar__icon">👤</span>
             <span class="sidebar__text"></span>
@@ -35,9 +41,10 @@
         <button class="sidebar__button" id="btnShowCars">
             <span class="sidebar__icon">🚗</span>
             <span class="sidebar__text"></span>
+
         </button>
-                <button class="sidebar__button" id="btnNewRental">
-            <span class="sidebar__icon">🚗👤+</span>
+        <button class="sidebar__button" id="btnShowRentals">
+            <span class="sidebar__icon">🚗👤</span>
             <span class="sidebar__text"></span>
         </button>
 
@@ -77,7 +84,8 @@
 
                 <input type="number" name="priceDay" class="modal__input" placeholder="Price/day" id="input-price-day">
 
-                <input type="number" name="priceHour" class="modal__input" placeholder="Price/hour" id="input-price-hour">
+                <input type="number" name="priceHour" class="modal__input" placeholder="Price/hour"
+                    id="input-price-hour">
 
                 <button type="submit" id="btnSaveCar">
                     Save
@@ -127,68 +135,52 @@
     </div>
 
     <div id="rentalModal" class="modal hidden">
-    <div class="modal__content">
+        <div class="modal__content">
 
-        <h2>New Rental</h2>
+            <h2>New Rental</h2>
 
-        <form id="rentalForm">
+            <form id="rentalForm">
 
-            <div class="input-group">
-                <label for="customerSelect">Customer</label>
-                <select id="customerSelect" name="customerId" required>
-                    <option value="">Select customer</option>
-                </select>
-            </div>
+                <div class="input-group">
+                    <label for="customerSelect">Customer</label>
+                    <select id="customerSelect" name="customerId" required>
+                        <option value="">Select customer</option>
+                    </select>
+                </div>
 
-            <div class="input-group">
-                <label for="startDate">Start Date</label>
-                <input
-                    type="date"
-                    id="input-start-date"
-                    name="startDate"
-                    required
-                >
-            </div>
+                <div class="input-group">
+                    <label for="startDate">Start Date</label>
+                    <input type="date" id="input-start-date" name="startDate" required>
+                </div>
 
-            <div class="input-group">
-                <label for="endDate">End Date</label>
-                <input
-                    type="date"
-                    id="input-end-date"
-                    name="endDate"
-                    required
-                >
-            </div>
+                <div class="input-group">
+                    <label for="endDate">End Date</label>
+                    <input type="date" id="input-end-date" name="endDate" required>
+                </div>
 
-            <div class="input-group">
-                <label for="carSelect">Car</label>
-                <select id="carSelect" name="carId" disabled required>
-                    <option value="">Select Car</option>
-                </select>
-            </div>
+                <div class="input-group">
+                    <label for="carSelect">Car</label>
+                    <select id="carSelect" name="carId" disabled required>
+                        <option value="">Select Car</option>
+                    </select>
+                </div>
 
-            <p id="rentalErrorMessage" class="error-message"></p>
+                <p id="rentalErrorMessage" class="error-message"></p>
 
-            <div class="modal-buttons">
-                <button
-                    type="button"
-                    id="cancelRentalBtn"
-                    class="secondary-btn">
-                    Cancel
-                </button>
+                <div class="modal-buttons">
+                    <button type="button" id="cancelRentalBtn" class="secondary-btn">
+                        Cancel
+                    </button>
 
-                <button
-                    type="submit"
-                    id="saveRentalBtn"
-                    class="primary-btn">
-                    Create Rental
-                </button>
-            </div>
+                    <button type="submit" id="saveRentalBtn" class="primary-btn">
+                        Create Rental
+                    </button>
+                </div>
 
-        </form>
+            </form>
 
+        </div>
     </div>
-</div>
 
 
     <script type="module" src="js/main.js"></script>
