@@ -195,14 +195,15 @@ export function renderCarSelect(startDate, endDate) {
 
     const carSelect = document.getElementById("carSelect");
 
-/*     if (startDate && endDate) {
-        const cars = cars.filter(car =>
+        const cars = getCars().filter(car =>
             isCarAvailable(car.id, startDate, endDate)
         );
-    }
-    else
-        alert("need dates to find available cars!"); */
-    const cars = getCars();
+    
+/*     else{
+        alert("need dates to find available cars!");
+        return;
+    } */
+   
     carSelect.innerHTML = `
         <option value="">Select car</option>
         ${cars.map(createCarOption).join("")}
@@ -235,6 +236,22 @@ function createCarOption(car) {
         </option>
     `;
 }
+
+export function updateAvailableCars() {
+    const carSelect = document.getElementById("carSelect");
+    const startDate = document.getElementById("input-start-date").value;
+    const endDate = document.getElementById("input-end-date").value;
+
+    if (!startDate || !endDate) {
+        carSelect.disabled = true;
+        return;
+    }
+    else{
+    carSelect.disabled = false;
+    renderCarSelect(startDate, endDate);
+    }
+}
+
 
 
 

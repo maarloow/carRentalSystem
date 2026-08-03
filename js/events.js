@@ -8,7 +8,8 @@ import {
     getCar,
     renderCarsPage,
     renderCarSelect,
-    isCarAvailable
+    isCarAvailable,
+    updateAvailableCars
 } from "./cars.js";
 
 import {
@@ -32,8 +33,8 @@ import {
 import { saveRental } from "./rentals.js";
 
 
-// Car elements //
 
+// Car elements //
 
 const openAddCarModalBtn = document.getElementById("btnAddCar");
 const closeCarModalBtn = document.getElementById("btnCloseModal");
@@ -47,7 +48,6 @@ const carForm = document.getElementById("carForm");
 
 // Customer elements //
 
-
 const openAddCustomerModalBtn = document.getElementById("btnAddCustomer");
 const closeCustomerModalBtn = document.getElementById("btnCloseCustomerModal");
 const deleteCustomerBtn = document.getElementById("btnDeleteCustomer");
@@ -57,12 +57,22 @@ const customerModal = document.getElementById("customerModal");
 const customerForm = document.getElementById("customerForm");
 
 
+
 // Rent elements //
 
 const openNewRentalModalBtn = document.getElementById("btnNewRental");
 
 const rentalModal = document.getElementById("rentalModal");
 const rentalForm = document.getElementById("rentalForm");
+
+const inputStartDate = document.getElementById("input-start-date");
+const inputEndDate = document.getElementById("input-end-date");
+
+
+
+
+
+
 
 // Customer events //
 
@@ -162,8 +172,13 @@ export function registerCustomerEvents() {
 }
 
 
-// Car events //
 
+
+
+
+
+
+// Car events //
 
 showCarsBtn.addEventListener("click", () => {
     renderCarsPage();
@@ -280,16 +295,19 @@ export function registerCarEvents() {
         else if (event.target.classList.contains("book-btn")) {
 
         }
-
     });
 }
+
+
+
+
 
 
 // Rental Events //
 
 openNewRentalModalBtn.addEventListener("click", () => {
     renderCustomerSelect();
-    renderCarSelect();
+    //renderCarSelect();
     rentalModal.classList.remove("hidden");
 });
 
@@ -313,3 +331,7 @@ rentalForm.addEventListener("submit", (event) => {
     saveRental(rental);
 
 });
+
+inputStartDate.addEventListener("change", updateAvailableCars);
+
+inputEndDate.addEventListener("change", updateAvailableCars);
